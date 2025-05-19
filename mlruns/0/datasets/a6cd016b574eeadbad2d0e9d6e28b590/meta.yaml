@@ -1,0 +1,7 @@
+digest: e46f75bf
+name: dataset
+profile: '{"features_shape": [3, 3], "features_size": 9, "features_nbytes": 72}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"int64\", \"shape\": [-1, 3]}}]", "targets": null}}'
+source: '{"uri": "1000_ml_jobs_us.csv"}'
+source_type: local

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/krisn/Submission_Membangun_Sistem_Machine_Learning/mlruns/169824785757360464/895c412d924149b5a8b50bae410ed0ba/artifacts
+end_time: 1747660986697
+entry_point_name: ''
+experiment_id: '169824785757360464'
+lifecycle_stage: active
+run_id: 895c412d924149b5a8b50bae410ed0ba
+run_name: upbeat-shrimp-497
+run_uuid: 895c412d924149b5a8b50bae410ed0ba
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747660985529
+status: 3
+tags: []
+user_id: krisn

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/krisn/Submission_Membangun_Sistem_Machine_Learning/mlruns/169824785757360464/1cec3ce27a6449c9a6a88661743b9ce4/artifacts
+end_time: 1747660995201
+entry_point_name: ''
+experiment_id: '169824785757360464'
+lifecycle_stage: active
+run_id: 1cec3ce27a6449c9a6a88661743b9ce4
+run_name: righteous-wren-220
+run_uuid: 1cec3ce27a6449c9a6a88661743b9ce4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747660994497
+status: 3
+tags: []
+user_id: krisn

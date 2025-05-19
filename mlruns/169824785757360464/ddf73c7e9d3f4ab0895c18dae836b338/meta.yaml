@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/krisn/Submission_Membangun_Sistem_Machine_Learning/mlruns/169824785757360464/ddf73c7e9d3f4ab0895c18dae836b338/artifacts
+end_time: 1747660999003
+entry_point_name: ''
+experiment_id: '169824785757360464'
+lifecycle_stage: active
+run_id: ddf73c7e9d3f4ab0895c18dae836b338
+run_name: amusing-steed-320
+run_uuid: ddf73c7e9d3f4ab0895c18dae836b338
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747660998303
+status: 3
+tags: []
+user_id: krisn

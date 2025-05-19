@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/krisn/Submission_Membangun_Sistem_Machine_Learning/mlruns/169824785757360464/d8fc4f08ffef49ec99f537ef1ff505f7/artifacts
+end_time: 1747660997112
+entry_point_name: ''
+experiment_id: '169824785757360464'
+lifecycle_stage: active
+run_id: d8fc4f08ffef49ec99f537ef1ff505f7
+run_name: dapper-mink-398
+run_uuid: d8fc4f08ffef49ec99f537ef1ff505f7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747660996384
+status: 3
+tags: []
+user_id: krisn

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/krisn/Submission_Membangun_Sistem_Machine_Learning/mlruns/169824785757360464/db71cb8f81324967a560e5cfdf8cb808/artifacts
+end_time: 1747660992524
+entry_point_name: ''
+experiment_id: '169824785757360464'
+lifecycle_stage: active
+run_id: db71cb8f81324967a560e5cfdf8cb808
+run_name: sincere-colt-915
+run_uuid: db71cb8f81324967a560e5cfdf8cb808
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747660991245
+status: 3
+tags: []
+user_id: krisn

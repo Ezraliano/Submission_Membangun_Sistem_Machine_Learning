@@ -4,17 +4,31 @@ import re
 import string
 import os
 import mlflow
+import mlflow.pyfunc
+import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import nltk
 
+# Download resource
 nltk.download('punkt')
 nltk.download('stopwords')
 
 
-# Text Preprocessing
+# ===================== Custom Pyfunc Model =====================
+class TfidfRecommenderModel(mlflow.pyfunc.PythonModel):
+    def load_context(self, context):
+        import joblib
+        self.vectorizer = joblib.load(context.artifacts["tfidf_model"])
+
+    def predict(self, context, model_input):
+        # model_input harus memiliki kolom 'text'
+        return self.vectorizer.transform(model_input["text"])
+
+
+# ===================== Preprocessing =====================
 def clean_text(text):
     if pd.isnull(text):
         return ""
@@ -25,13 +39,17 @@ def clean_text(text):
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word not in stop_words]
     return ' '.join(tokens)
+
+
 def combine_features(row):
     return f"{row['job_title_clean']} {row['job_description_clean']} {row.get('skills_clean', '')}"
+
 
 def is_relevant(actual_title, recommended_title):
     actual_words = set(actual_title.lower().split())
     recommended_words = set(recommended_title.lower().split())
     return len(actual_words.intersection(recommended_words)) > 0
+
 
 def evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100):
     precision_scores, recall_scores, f1_scores = [], [], []
@@ -40,7 +58,7 @@ def evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100):
     for idx in sample_indices:
         actual_title = data.iloc[idx]['job_title']
         sim_scores = list(enumerate(cosine_sim[idx]))
-        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)[1:top_n+1]
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)[1:top_n + 1]
         recommended_indices = [i[0] for i in sim_scores]
         recommended_titles = data.iloc[recommended_indices]['job_title'].values
 
@@ -60,23 +78,25 @@ def evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100):
         f1_scores.append(f1)
 
     return {
-    'precision_at_5': np.mean(precision_scores),
-    'recall_at_5': np.mean(recall_scores),
-    'f1_at_5': np.mean(f1_scores)
-}
+        'precision_at_5': np.mean(precision_scores),
+        'recall_at_5': np.mean(recall_scores),
+        'f1_at_5': np.mean(f1_scores)
+    }
 
 
-
-
+# ===================== Main =====================
 def main():
     print("[INFO] Starting recommender model training...")
 
+    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_experiment("TFIDF_Recommender")
+
     # Load dataset
-    base_dir = os.path.abspath(os.path.dirname(__file__))  # lokasi file .py saat ini
+    base_dir = os.path.abspath(os.path.dirname(__file__))
     data_path = os.path.join(base_dir, 'dataset_preprocessing', '1000_ml_jobs_us_preprocessed.csv')
     data = pd.read_csv(data_path)
 
-    # Preprocess
+    # Preprocessing
     data['job_title_clean'] = data['job_title'].apply(clean_text)
     data['job_description_clean'] = data['job_description_text'].apply(clean_text)
     data['skills_clean'] = data['skills'].fillna('').apply(clean_text) if 'skills' in data.columns else ''
@@ -92,14 +112,25 @@ def main():
     # Evaluate
     metrics = evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100)
 
-    # MLflow logging
-    mlflow.start_run()
-    for metric, value in metrics.items():
-        mlflow.log_metric(metric, value)
-        print(f"[METRIC] {metric}: {value:.4f}")
-    mlflow.end_run()
+    # Logging to MLflow
+    with mlflow.start_run():
+        for metric, value in metrics.items():
+            mlflow.log_metric(metric, value)
+            print(f"[METRIC] {metric}: {value:.4f}")
 
-    print("[INFO] Recommender training complete.")
+        # Simpan model tfidf ke file sementara
+        tfidf_path = os.path.join(base_dir, "tfidf_model.pkl")
+        joblib.dump(tfidf, tfidf_path)
+
+        # Log model dalam format pyfunc agar bisa diserve
+        mlflow.pyfunc.log_model(
+            artifact_path="tfidf_model_pyfunc",
+            python_model=TfidfRecommenderModel(),
+            artifacts={"tfidf_model": tfidf_path}
+        )
+
+    print("[INFO] Model training complete and pyfunc model logged.")
+
 
 if __name__ == "__main__":
     main()

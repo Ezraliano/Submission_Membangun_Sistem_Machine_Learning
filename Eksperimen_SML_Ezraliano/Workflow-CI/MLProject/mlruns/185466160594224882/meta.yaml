@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/185466160594224882
+creation_time: 1747724301454
+experiment_id: '185466160594224882'
+last_update_time: 1747724301454
+lifecycle_stage: active
+name: TFIDF_Recommender

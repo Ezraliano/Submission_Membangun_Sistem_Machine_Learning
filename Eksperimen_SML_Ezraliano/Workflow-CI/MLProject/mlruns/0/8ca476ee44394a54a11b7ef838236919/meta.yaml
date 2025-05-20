@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/8ca476ee44394a54a11b7ef838236919/artifacts
+end_time: 1747722985785
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8ca476ee44394a54a11b7ef838236919
+run_name: overjoyed-zebra-927
+run_uuid: 8ca476ee44394a54a11b7ef838236919
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747722976390
+status: 3
+tags: []
+user_id: krisn

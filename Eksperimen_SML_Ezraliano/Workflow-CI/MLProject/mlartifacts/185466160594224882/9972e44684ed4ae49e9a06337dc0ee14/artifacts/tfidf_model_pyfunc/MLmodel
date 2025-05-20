@@ -1,0 +1,22 @@
+artifact_path: tfidf_model_pyfunc
+flavors:
+  python_function:
+    artifacts:
+      tfidf_model:
+        path: artifacts\tfidf_model.pkl
+        uri: C:\Users\krisn\Submission_Membangun_Sistem_Machine_Learning\Eksperimen_SML_Ezraliano\Workflow-CI\MLProject\tfidf_model.pkl
+    cloudpickle_version: 3.1.1
+    code: null
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.13.3
+    streamable: false
+mlflow_version: 2.22.0
+model_size_bytes: 388062
+model_uuid: 662f96b7e8a3463cb98f90da27691304
+prompts: null
+run_id: 9972e44684ed4ae49e9a06337dc0ee14
+utc_time_created: '2025-05-20 06:58:25.203706'

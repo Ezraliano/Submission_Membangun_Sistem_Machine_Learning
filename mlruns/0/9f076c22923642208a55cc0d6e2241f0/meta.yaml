@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/9f076c22923642208a55cc0d6e2241f0/artifacts
+end_time: 1747715376588
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9f076c22923642208a55cc0d6e2241f0
+run_name: placid-carp-597
+run_uuid: 9f076c22923642208a55cc0d6e2241f0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747715374133
+status: 3
+tags: []
+user_id: krisn

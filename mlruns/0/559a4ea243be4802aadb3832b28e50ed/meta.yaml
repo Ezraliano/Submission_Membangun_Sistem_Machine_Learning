@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/559a4ea243be4802aadb3832b28e50ed/artifacts
+end_time: 1747712767477
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 559a4ea243be4802aadb3832b28e50ed
+run_name: industrious-bee-800
+run_uuid: 559a4ea243be4802aadb3832b28e50ed
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747712767247
+status: 4
+tags: []
+user_id: krisn

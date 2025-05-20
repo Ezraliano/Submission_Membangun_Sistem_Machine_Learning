@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/185466160594224882/9972e44684ed4ae49e9a06337dc0ee14/artifacts
+end_time: 1747724310410
+entry_point_name: ''
+experiment_id: '185466160594224882'
+lifecycle_stage: active
+run_id: 9972e44684ed4ae49e9a06337dc0ee14
+run_name: silent-flea-758
+run_uuid: 9972e44684ed4ae49e9a06337dc0ee14
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747724304969
+status: 3
+tags: []
+user_id: krisn

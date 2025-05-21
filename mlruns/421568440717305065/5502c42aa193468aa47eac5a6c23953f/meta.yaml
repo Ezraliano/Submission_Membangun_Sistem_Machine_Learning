@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/421568440717305065/5502c42aa193468aa47eac5a6c23953f/artifacts
+end_time: 1747798493875
+entry_point_name: ''
+experiment_id: '421568440717305065'
+lifecycle_stage: active
+run_id: 5502c42aa193468aa47eac5a6c23953f
+run_name: silent-deer-598
+run_uuid: 5502c42aa193468aa47eac5a6c23953f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747798488930
+status: 3
+tags: []
+user_id: krisn

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/421568440717305065/f6b26d4f4ef14185a057645d9592997a/artifacts
+end_time: 1747798118279
+entry_point_name: ''
+experiment_id: '421568440717305065'
+lifecycle_stage: active
+run_id: f6b26d4f4ef14185a057645d9592997a
+run_name: placid-sheep-535
+run_uuid: f6b26d4f4ef14185a057645d9592997a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747797865747
+status: 4
+tags: []
+user_id: krisn

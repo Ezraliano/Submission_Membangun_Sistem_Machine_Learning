@@ -1,0 +1,37 @@
+artifact_path: tfidf_model_pyfunc
+flavors:
+  python_function:
+    artifacts:
+      data_csv:
+        path: artifacts\data.csv
+        uri: c:\Users\krisn\Submission_Membangun_Sistem_Machine_Learning\Eksperimen_SML_Ezraliano\Workflow-CI\MLProject\data.csv
+      tfidf_model:
+        path: artifacts\tfidf_model.pkl
+        uri: c:\Users\krisn\Submission_Membangun_Sistem_Machine_Learning\Eksperimen_SML_Ezraliano\Workflow-CI\MLProject\tfidf_model.pkl
+    cloudpickle_version: 3.1.1
+    code: code
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.13.3
+    streamable: false
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 30569354
+model_uuid: bd607d9ab3fd40509c7e0e12e21cfd08
+prompts: null
+run_id: 0bcc1c6160f54ed2883bc3aac5d6a730
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "string", "name": "text", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1,
+    5000]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-05-21 06:15:37.196589'

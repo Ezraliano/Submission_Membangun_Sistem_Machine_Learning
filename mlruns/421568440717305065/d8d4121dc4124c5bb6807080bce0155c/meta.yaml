@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/421568440717305065/d8d4121dc4124c5bb6807080bce0155c/artifacts
+end_time: 1747802761527
+entry_point_name: ''
+experiment_id: '421568440717305065'
+lifecycle_stage: active
+run_id: d8d4121dc4124c5bb6807080bce0155c
+run_name: glamorous-yak-950
+run_uuid: d8d4121dc4124c5bb6807080bce0155c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747802754963
+status: 3
+tags: []
+user_id: krisn

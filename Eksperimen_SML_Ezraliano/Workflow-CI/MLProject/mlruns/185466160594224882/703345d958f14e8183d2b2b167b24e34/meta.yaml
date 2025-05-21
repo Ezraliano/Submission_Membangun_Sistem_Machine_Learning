@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/185466160594224882/703345d958f14e8183d2b2b167b24e34/artifacts
+end_time: 1747795870936
+entry_point_name: ''
+experiment_id: '185466160594224882'
+lifecycle_stage: active
+run_id: 703345d958f14e8183d2b2b167b24e34
+run_name: unleashed-pig-457
+run_uuid: 703345d958f14e8183d2b2b167b24e34
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747795863588
+status: 3
+tags: []
+user_id: krisn

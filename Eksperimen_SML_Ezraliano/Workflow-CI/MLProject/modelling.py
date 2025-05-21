@@ -1,34 +1,49 @@
-import pandas as pd
-import numpy as np
+import os
 import re
 import string
-import os
+import joblib
+import pandas as pd
+import numpy as np
 import mlflow
 import mlflow.pyfunc
-import joblib
+import nltk
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-import nltk
+from mlflow.models.signature import infer_signature
 
-# Download resource
+# ===================== Setup =====================
 nltk.download('punkt')
 nltk.download('stopwords')
 
-
 # ===================== Custom Pyfunc Model =====================
 class TfidfRecommenderModel(mlflow.pyfunc.PythonModel):
+    def __init__(self):
+        super().__init__()
+        self.tfidf_matrix = None
+        self.cosine_sim = None
+        self.data = None
+
     def load_context(self, context):
         import joblib
+        # Load model TF-IDF
         self.vectorizer = joblib.load(context.artifacts["tfidf_model"])
+        # Load data dan hasil cosine similarity
+        self.data = pd.read_csv(context.artifacts["data_csv"])
+        tfidf_matrix = self.vectorizer.transform(self.data['combined_text'])
+        self.cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
     def predict(self, context, model_input):
-        # model_input harus memiliki kolom 'text'
-        return self.vectorizer.transform(model_input["text"])
+        input_text = model_input.iloc[0]["text"]
+        input_vec = self.vectorizer.transform([input_text])
+        sim_scores = cosine_similarity(input_vec, self.cosine_sim).flatten()
+        top_indices = sim_scores.argsort()[-5:][::-1]  # Top 5 recommendations
+        return self.data.iloc[top_indices]['job_title'].tolist()
 
 
-# ===================== Preprocessing =====================
+# ===================== Preprocessing Functions =====================
 def clean_text(text):
     if pd.isnull(text):
         return ""
@@ -40,16 +55,13 @@ def clean_text(text):
     tokens = [word for word in tokens if word not in stop_words]
     return ' '.join(tokens)
 
-
 def combine_features(row):
     return f"{row['job_title_clean']} {row['job_description_clean']} {row.get('skills_clean', '')}"
-
 
 def is_relevant(actual_title, recommended_title):
     actual_words = set(actual_title.lower().split())
     recommended_words = set(recommended_title.lower().split())
     return len(actual_words.intersection(recommended_words)) > 0
-
 
 def evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100):
     precision_scores, recall_scores, f1_scores = [], [], []
@@ -83,17 +95,17 @@ def evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100):
         'f1_at_5': np.mean(f1_scores)
     }
 
-
-# ===================== Main =====================
+# ===================== Main Script =====================
 def main():
-    print("[INFO] Starting recommender model training...")
+    print("[INFO] Starting training & logging...")
 
     mlflow.set_tracking_uri("http://localhost:5000")
     mlflow.set_experiment("TFIDF_Recommender")
 
-    # Load dataset
     base_dir = os.path.abspath(os.path.dirname(__file__))
+    script_path = os.path.abspath(__file__)
     data_path = os.path.join(base_dir, 'dataset_preprocessing', '1000_ml_jobs_us_preprocessed.csv')
+
     data = pd.read_csv(data_path)
 
     # Preprocessing
@@ -111,26 +123,39 @@ def main():
 
     # Evaluate
     metrics = evaluate_recommendations(data, cosine_sim, top_n=5, sample_size=100)
+    for metric, value in metrics.items():
+        print(f"[METRIC] {metric}: {value:.4f}")
 
-    # Logging to MLflow
+    # Save artifacts
+    tfidf_path = os.path.join(base_dir, "tfidf_model.pkl")
+    joblib.dump(tfidf, tfidf_path)
+
+    data_csv_path = os.path.join(base_dir, "data.csv")
+    data.to_csv(data_csv_path, index=False)
+
+    # Example input for model signature
+    input_example = pd.DataFrame({"text": ["example job description"]})
+    transformed = tfidf.transform(input_example["text"])
+    signature = infer_signature(input_example, transformed)
+
+    # Log model
     with mlflow.start_run():
         for metric, value in metrics.items():
             mlflow.log_metric(metric, value)
-            print(f"[METRIC] {metric}: {value:.4f}")
 
-        # Simpan model tfidf ke file sementara
-        tfidf_path = os.path.join(base_dir, "tfidf_model.pkl")
-        joblib.dump(tfidf, tfidf_path)
-
-        # Log model dalam format pyfunc agar bisa diserve
         mlflow.pyfunc.log_model(
             artifact_path="tfidf_model_pyfunc",
             python_model=TfidfRecommenderModel(),
-            artifacts={"tfidf_model": tfidf_path}
+            artifacts={
+                "tfidf_model": tfidf_path,
+                "data_csv": data_csv_path
+            },
+            input_example=input_example,
+            signature=signature,
+            code_path=[script_path]
         )
 
-    print("[INFO] Model training complete and pyfunc model logged.")
-
+    print("[INFO] Model training complete and logged to MLflow.")
 
 if __name__ == "__main__":
     main()

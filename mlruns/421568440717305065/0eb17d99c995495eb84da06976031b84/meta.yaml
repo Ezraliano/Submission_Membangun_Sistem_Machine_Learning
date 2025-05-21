@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/421568440717305065/0eb17d99c995495eb84da06976031b84/artifacts
+end_time: 1747801762603
+entry_point_name: ''
+experiment_id: '421568440717305065'
+lifecycle_stage: active
+run_id: 0eb17d99c995495eb84da06976031b84
+run_name: persistent-asp-337
+run_uuid: 0eb17d99c995495eb84da06976031b84
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747801508654
+status: 4
+tags: []
+user_id: krisn

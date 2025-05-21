@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/421568440717305065/0bcc1c6160f54ed2883bc3aac5d6a730/artifacts
+end_time: 1747808145264
+entry_point_name: ''
+experiment_id: '421568440717305065'
+lifecycle_stage: active
+run_id: 0bcc1c6160f54ed2883bc3aac5d6a730
+run_name: puzzled-toad-895
+run_uuid: 0bcc1c6160f54ed2883bc3aac5d6a730
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747808137126
+status: 3
+tags: []
+user_id: krisn
